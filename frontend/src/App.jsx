@@ -13,6 +13,12 @@ function App() {
 
   useEffect(load, []);
 
+  function remove(noteId) {
+    fetch(`/api/notes/${noteId}`, { method: "DELETE" }).then(() => {
+      load();
+    });
+  }
+
   function submit(event) {
     event.preventDefault();
 
@@ -49,6 +55,9 @@ function App() {
           <li key={note.id}>
             {note.text}
             {note.url && <a href={note.url}> (attachment)</a>}
+            <button type="button" onClick={() => remove(note.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
